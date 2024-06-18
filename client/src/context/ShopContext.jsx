@@ -34,6 +34,7 @@ const ShopContextProvider = (props) => {
 
       if (response.ok) {
         const productData = await response.json();
+        console.log("I am the " + productData);
         setAll_Product(productData);
       }
     } catch (error) {
