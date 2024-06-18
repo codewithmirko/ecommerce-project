@@ -55,9 +55,14 @@ app.use("/images", express.static(path.join(__dirname, "upload/images")));
 app.post("/upload", upload.single("product"), (req, res) => {
   console.log(req.file); // Log req.file to check its content
   if (req.file && req.file.filename) {
+    const baseUrl =
+      process.env.NODE_ENV === "production"
+        ? "https://ecommerce-project-server.adaptable.app"
+        : `http://localhost:${port}`;
+
     res.json({
       success: 1,
-      image_url: `https://localhost:${port}/images/${req.file.filename}`,
+      image_url: `${baseUrl}/images/${req.file.filename}`,
     });
   } else {
     res.json({
