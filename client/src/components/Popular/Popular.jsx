@@ -1,14 +1,39 @@
 import "./Popular.css";
-import data_product from "../../assets/data";
 import Item from "../Items/Item";
+import { useState, useEffect } from "react";
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+console.log("before");
+const apiUrl = API_URL;
+console.log("after");
 
 const Popular = () => {
+  const [popularProducts, setPopularProducts] = useState([]);
+
+  useEffect(() => {
+    fetchPopularItems();
+  }, []);
+
+  const fetchPopularItems = async () => {
+    try {
+      const response = await fetch(`${API_URL}/products/popular-women`);
+
+      if (response.ok) {
+        const popularItemsData = await response.json();
+        setPopularProducts(popularItemsData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="popular">
       <h1>POPULAR IN WOMEN</h1>
       <hr />
       <div className="popular-item">
-        {data_product.map((item, i) => {
+        {popularProducts.map((item, i) => {
           return (
             <Item
               key={i}

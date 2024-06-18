@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import "./ListProduct.css";
 import cross_icon from "../../assets/cross_icon.png";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const ListProduct = () => {
   const [allproducts, setAllProducts] = useState([]);
 
   const fetchAllProducts = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:4000/products/allproducts"
-      );
+      const response = await fetch(`${API_URL}/products/allproducts`);
 
       if (response.ok) {
         const productsData = await response.json();
@@ -26,17 +26,14 @@ const ListProduct = () => {
 
   const removeProduct = async (id) => {
     try {
-      const response = await fetch(
-        "http://localhost:4000/products/removeproduct",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id: id }),
-        }
-      );
+      const response = await fetch(`${API_URL}/products/removeproduct`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+      });
       await fetchAllProducts();
     } catch (error) {
       console.log(error);
