@@ -36,35 +36,44 @@ app.listen(port, (error) => {
   }
 });
 
-// IMAGE STORAGE HANDLING
 const storage = multer.diskStorage({
-  destination: "./upload/images",
+  destination: (req, file, cb) => {
+    const uploadPath = "./upload/images";
+    console.log(`Setting upload destination to: ${uploadPath}`);
+    cb(null, uploadPath);
+  },
   filename: (req, file, cb) => {
-    return cb(
-      null,
-      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-    );
+    const filename = `${file.fieldname}_${Date.now()}${path.extname(
+      file.originalname
+    )}`;
+    console.log(`Generated filename: ${filename}`);
+    cb(null, filename);
   },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    console.log(`Received file: ${file.originalname}`);
+    cb(null, true);
+  },
+});
 
-// Creating Upload Endpoint for images
+// Serve static files from the 'upload/images' directory
 app.use("/images", express.static(path.join(__dirname, "upload/images")));
 
 app.post("/upload", upload.single("product"), (req, res) => {
-  console.log(req.file); // Log req.file to check its content
-  if (req.file && req.file.filename) {
-    const baseUrl =
-      process.env.NODE_ENV === "production"
-        ? "https://ecommerce-project-server.adaptable.app"
-        : `http://localhost:${port}`;
-
+  console.log("Received POST request on /upload");
+  if (req.file) {
+    console.log("File details:", req.file);
+    const imageUrl = `https://ecommerce-project-server.adaptable.app/images/${req.file.filename}`;
+    console.log(`File uploaded successfully. Access it at: ${imageUrl}`);
     res.json({
       success: 1,
-      image_url: `${baseUrl}/images/${req.file.filename}`,
+      image_url: imageUrl,
     });
   } else {
+    console.log("File upload failed. No file received.");
     res.json({
       success: 0,
       message: "File upload failed",
