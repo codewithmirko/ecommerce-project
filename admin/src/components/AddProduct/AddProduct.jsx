@@ -22,52 +22,6 @@ const AddProduct = () => {
     setProductDetails({ ...productDetails, [e.target.name]: e.target.value });
   };
 
-  // const Add_Product = async () => {
-  //   console.log(productDetails);
-  //   let product = productDetails;
-
-  //   let formData = new FormData();
-  //   formData.append("product", image);
-
-  //   try {
-  //     const response = await fetch(`${API_URL}/upload`, {
-  //       method: "POST",
-  //       headers: { Accept: "application/json" },
-  //       body: formData,
-  //     });
-
-  //     if (response.ok) {
-  //       const responseData = await response.json();
-  //       if (responseData.success) {
-  //         product.image = responseData.image_url;
-  //         console.log(product);
-  //         await fetch(`${API_URL}/products/addproduct`, {
-  //           method: "POST",
-  //           headers: {
-  //             Accept: "application/json",
-  //             "Content-Type": "application/json",
-  //           },
-  //           body: JSON.stringify(product),
-  //         })
-  //           .then((response) => response.json())
-  //           .then((data) => {
-  //             data.success ? alert("Product Added") : alert("Failed");
-  //           });
-  //       } else {
-  //         console.error("File upload failed:", responseData.message);
-  //       }
-  //     } else {
-  //       const errorData = await response.json();
-  //       console.error(
-  //         "Failed to upload file. Server responded with:",
-  //         errorData.message
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.error("Error during file upload:", error);
-  //   }
-  // };
-
   const Add_Product = async () => {
     console.log(productDetails);
     let product = { ...productDetails };
@@ -134,24 +88,12 @@ const AddProduct = () => {
         </select>
       </div>
       <div className="addproduct-itemfield">
-        <label htmlFor="file-input" className="addproduct-thumbnail">
-          <img src={image ? URL.createObjectURL(image) : upload_area} alt="" />
-        </label>
-        <input
-          onChange={imageHandler}
-          type="file"
-          name="image"
-          id="file-input"
-          hidden
-        />
-      </div>
-      <div className="addproduct-itemfield">
         <p>Image URL</p>
         <input
           value={productDetails.image}
           onChange={changeHandler}
           type="text"
-          name="image_url"
+          name="image"
           placeholder="Type here"
         />
       </div>
