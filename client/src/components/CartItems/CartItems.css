@@ -69,7 +69,6 @@
   color: #fff;
   font-size: 16px;
   font-weight: 600;
-  cursor: pointer;
   border-radius: 8px;
 }
 
@@ -107,7 +106,6 @@
   font-size: 16px;
   background: black;
   color: white;
-  cursor: pointer;
   border-radius: 0 5px 5px 0;
 }
 
