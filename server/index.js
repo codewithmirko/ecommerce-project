@@ -59,7 +59,7 @@ const upload = multer({
   },
 });
 
-// Serve static files from the 'upload/images' directory
+// Serve static files from the 'upload/images' director
 app.use("/images", express.static(path.join(__dirname, "upload/images")));
 
 app.post("/upload", upload.single("product"), (req, res) => {
