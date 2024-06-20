@@ -19,7 +19,6 @@ const LoginSignup = () => {
 
   const handleLoginSubmit = async () => {
     try {
-      console.log("Login Function executed");
       const response = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -40,7 +39,6 @@ const LoginSignup = () => {
 
   const handleSignUpSubmit = async () => {
     try {
-      console.log("Signup Function executed");
       const response = await fetch(`${API_URL}/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -48,7 +46,7 @@ const LoginSignup = () => {
       });
       if (response.ok) {
         const newUser = await response.json();
-        console.log(newUser);
+
         setState("Login");
       }
     } catch (error) {
@@ -70,7 +68,6 @@ const LoginSignup = () => {
               }}
             />
           )}
-          {console.log(email)}
           <input
             type="email"
             placeholder="Your E-Mail Adress"

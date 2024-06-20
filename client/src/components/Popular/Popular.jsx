@@ -4,9 +4,7 @@ import { useState, useEffect } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-console.log("before");
 const apiUrl = API_URL;
-console.log("after");
 
 const Popular = () => {
   const [popularProducts, setPopularProducts] = useState([]);

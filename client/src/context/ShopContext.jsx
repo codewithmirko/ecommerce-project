@@ -21,12 +21,9 @@ const ShopContextProvider = (props) => {
     fetchAllProducts();
 
     if (localStorage.getItem("auth-token")) {
-      console.log("Got the token, next will be fetching cart");
       fetchCart();
     }
   }, []);
-
-  console.log("all products " + all_product);
 
   const fetchAllProducts = async () => {
     try {
@@ -34,7 +31,7 @@ const ShopContextProvider = (props) => {
 
       if (response.ok) {
         const productData = await response.json();
-        console.log("I am the " + productData);
+
         setAll_Product(productData);
       }
     } catch (error) {
@@ -78,15 +75,12 @@ const ShopContextProvider = (props) => {
 
         if (response.ok) {
           const cartData = await response.json();
-          console.log(cartData);
         }
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  console.log(cartItems);
 
   const removeFromCart = async (itemId) => {
     try {
@@ -104,7 +98,6 @@ const ShopContextProvider = (props) => {
 
         if (response.ok) {
           const cartData = await response.json();
-          console.log(cartData);
         }
       }
     } catch (error) {
